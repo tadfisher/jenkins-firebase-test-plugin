@@ -127,7 +127,8 @@ class FirebaseTestStep @DataBoundConstructor constructor(val command: Command)
 
                 env.override("GCLOUDSDK_CONFIG", configDir.remote)
                 env.override("GOOGLE_APPLICATION_CREDENTIALS", keyFile.remote)
-                script.append("$gcloud auth activate-service-account ${config.accountId} --key-file=${keyFile.remote}\n")
+                script.append("$gcloud auth activate-service-account ${config.accountId} --key-file=${keyFile.remote} "
+                    + "--project ${credential.projectId}\n")
 
                 controller.googleCredentials = ServiceAccountCredentials.fromStream(keyFile.read())
             }
